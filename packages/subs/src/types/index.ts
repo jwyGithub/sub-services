@@ -1,7 +1,7 @@
 export type Protocol = 'vmess' | 'vless' | 'trojan' | 'ss' | 'ssr' | 'hysteria' | 'hysteria2';
 export type Parser = 'vmess' | 'vless' | 'trojan' | 'ss';
 
-export interface DefaultConfig {
+export interface Config {
     storage: {
         base_path: string;
         files: {
@@ -19,10 +19,6 @@ export interface DefaultConfig {
         patterns: string[];
         countryCodes: string[];
     };
-}
-
-export interface Config {
-    subs: string[];
     vps: Record<
         Protocol,
         {

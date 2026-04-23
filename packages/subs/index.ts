@@ -1,30 +1,25 @@
-import type { Config, DefaultConfig, Node } from './src/types';
+import type { Config, Node } from './src/types';
 import { join } from 'node:path';
 import process from 'node:process';
-import { loadConfig, logger, mergeConfig } from '@sub-services/shared';
+import { loadConfig, logger } from '@sub-services/shared';
 import { File } from './src/core/file';
 import { ParserFactory } from './src/core/parser';
 import { Process } from './src/core/process';
 import { Storage } from './src/core/storage';
 import { fetchSub } from './src/fetch';
 
-function loadEnvConfig<T extends Config>() {
+function loadEnvConfig() {
     const env = process.env.NODE_ENV || 'development';
-    logger.info(`从 %s 配置文件中加载配置...`, env);
-    const defaultConfig = loadConfig<Record<string, string>>('config/default.yaml', { parser: 'yaml' });
-    let envConfig: Record<string, string> = {};
-
-    if (env === 'production' && process.env.CONFIG) {
-        envConfig = loadConfig(process.env.CONFIG, { parser: 'yaml' });
-    } else {
-        envConfig = loadConfig<Record<string, string>>('config/dev.yaml', { parser: 'yaml' });
-    }
-    const mergedConfig = mergeConfig<T>(defaultConfig, envConfig);
+    const config = loadConfig<Config>('config/config.yaml', { parser: 'yaml' });
+    const subs: string[] = env === 'production' ? JSON.parse(process.env.SUBS) : [];
     logger.info('加载环境配置成功');
-    return mergedConfig;
+    return {
+        config,
+        subs
+    };
 }
 
-function loadSubsConfig(subs: Config['subs'], vpsConfig: Config['vps']) {
+function loadSubsConfig(subs: string[], vpsConfig: Config['vps']) {
     return Object.entries(vpsConfig)
         .map(([, value]) => {
             return subs.map(sub => {
@@ -43,10 +38,10 @@ function loadSubsConfig(subs: Config['subs'], vpsConfig: Config['vps']) {
 async function main() {
     try {
         const file = new File(join(process.cwd(), 'address'));
-        const config = loadEnvConfig<DefaultConfig & Config>();
+        const { config, subs: envSubs } = loadEnvConfig();
         const storage = new Storage(config.storage);
         const processor = new Process(config);
-        const vpsConfig = loadSubsConfig(config.subs, config.vps);
+        const vpsConfig = loadSubsConfig(envSubs, config.vps);
         logger.info('加载 vps 配置成功, %s', vpsConfig.length);
         const subs = await fetchSub(vpsConfig);
         await file.saveOriginalContent(subs);

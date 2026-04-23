@@ -1,0 +1,52 @@
+# 文件存储配置
+storage:
+    base_path: 'address'
+    files:
+        vless: 'vless_api.txt'
+        vmess: 'vmess_api.txt'
+        trojan: 'trojan_api.txt'
+        ssr: 'ssr_api.txt'
+        ss: 'ss_api.txt'
+        hysteria: 'hysteria_api.txt'
+        hysteria2: 'hysteria2_api.txt'
+        all: 'all.txt'
+
+# 过滤规则配置
+filter:
+    # 正则表达式黑名单
+    patterns:
+        - '^127\.' # 过滤本地回环地址
+        - '^192\.168\.' # 过滤局域网地址
+        - 'cf\.090227\.xyz$' # 过滤特定域名
+        - 'cmliussss\.com$'
+    # 国家/地区
+    countryCodes:
+        - 'CN' # 中国大陆
+        
+# 订阅配置
+vps:
+    vmess:
+        protocol: 'vmess'
+        parser: 'vmess'
+        config:
+            host: 'ovo-vmess.nicoo.xyz'
+            uuid: 8cf27747-a606-4f82-9269-3f79ad0c230b
+            alterid: 0
+    vless:
+        protocol: 'vless'
+        parser: 'vless'
+        config:
+            host: 'ovo-vless.nicoo.xyz'
+            uuid: 8cf27747-a606-4f82-9269-3f79ad0c230b
+    trojan:
+        protocol: 'trojan'
+        parser: 'trojan'
+        config:
+            host: 'ovo-trojan.nicoo.xyz'
+            password: '8fYf7n171D'
+    ss:
+        protocol: 'ss'
+        parser: 'vless'
+        config:
+            host: 'ovo-shadowsocks.nicoo.xyz'
+            uuid: 8cf27747-a606-4f82-9269-3f79ad0c230b
