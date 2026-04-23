@@ -1,0 +1,38 @@
+{
+    "name": "sub-services",
+    "type": "module",
+    "version": "1.0.0",
+    "packageManager": "pnpm@10.33.0",
+    "description": "",
+    "author": "",
+    "license": "ISC",
+    "keywords": [],
+    "main": "index.js",
+    "engines": {
+        "node": ">=24.0.0"
+    },
+    "scripts": {
+        "start": "pnpm --filter subs start",
+        "prod": "pnpm --filter subs prod",
+        "build:shared": "pnpm --filter shared build",
+        "lint": "eslint . --ext .js,.ts",
+        "lint:fix": "eslint . --ext .js,.ts --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "dependencies": {
+        "cloudflare-tools": "^0.2.3"
+    },
+    "devDependencies": {
+        "@jawyn/eslint-config": "^0.0.1",
+        "@jawyn/prettier-config": "^0.0.1",
+        "@jawyn/tsconfig": "^0.0.1",
+        "@types/node": "^25.6.0",
+        "eslint": "^10.2.1",
+        "esno": "^4.8.0",
+        "jiti": "^2.6.1",
+        "prettier": "^3.8.3",
+        "tsdown": "^0.21.10",
+        "typescript": "^6.0.3"
+    }
+}

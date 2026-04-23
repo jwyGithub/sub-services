@@ -1,0 +1,7 @@
+{
+    "$extends": "@jawyn/tsconfig/tsconfig.node.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "esModuleInterop": true
+    }
+}

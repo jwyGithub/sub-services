@@ -1,0 +1,16 @@
+{
+    "name": "@sub-services/subs",
+    "version": "0.0.1",
+    "packageManager": "pnpm@10.33.0",
+    "description": "",
+    "author": "",
+    "license": "ISC",
+    "keywords": [],
+    "scripts": {
+        "start": "esno index.ts",
+        "prod": "NODE_ENV=production esno index.ts"
+    },
+    "dependencies": {
+        "@sub-services/shared": "workspace:*"
+    }
+}
