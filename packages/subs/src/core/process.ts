@@ -1,12 +1,12 @@
-import type { DefaultConfig, Node } from '../types';
+import type { Config, Node } from '../types';
 import { logger } from '@sub-services/shared';
 import { ipLookup } from './lookup';
 
 export class Process {
-    private readonly filterRules: DefaultConfig['filter'];
+    private readonly filterRules: Config['filter'];
     private readonly regexPatterns: RegExp[];
 
-    constructor(config: DefaultConfig) {
+    constructor(config: Config) {
         this.filterRules = config.filter;
         // 预编译正则表达式
         this.regexPatterns = this.filterRules.patterns

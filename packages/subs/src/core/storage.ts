@@ -1,12 +1,12 @@
-import type { DefaultConfig, Node, Protocol } from '../types';
+import type { Config, Node, Protocol } from '../types';
 import { logger } from '@sub-services/shared';
 import { File } from './file';
 
 export class Storage {
-    private readonly storageConfig: DefaultConfig['storage'];
+    private readonly storageConfig: Config['storage'];
     private readonly file: File;
 
-    constructor(storageConfig: DefaultConfig['storage']) {
+    constructor(storageConfig: Config['storage']) {
         this.storageConfig = storageConfig;
         this.file = new File(storageConfig.base_path);
     }
